@@ -27,3 +27,6 @@ static/game
 # Local working notes and screenshots
 /reports
 /milestone1.png
+
+# Packed game data (pnpm pack-assets)
+/game-data.tar.gz
