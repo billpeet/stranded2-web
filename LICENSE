@@ -1,0 +1,57 @@
+Stranded II Web
+===============
+
+This repository is a derivative work of the Stranded II source code by
+Peter Schauß / Unreal Software (https://www.unrealsoftware.de), as published
+at https://github.com/ttyborg/Stranded2.
+
+It is licensed under the
+
+    Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Germany
+    (CC BY-NC-SA 3.0 DE)
+
+Licence deed (English):  https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en
+Full legal code (German): https://creativecommons.org/licenses/by-nc-sa/3.0/de/legalcode
+
+Attribution
+-----------
+
+Original game, source code and assets: Stranded II, (c) Unreal Software
+2004-2008, Peter Schauß. https://www.unrealsoftware.de
+
+This project uses the code of Stranded II.
+
+The original source release carries the following notice, which applies to
+this repository as well:
+
+    This code is released under the
+    Creative Commons
+    Attribution-Noncommercial-Share Alike 3.0 Germany
+    License
+
+    See the following links for license details:
+    http://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en
+
+    You are allowed to modify this code as you like!
+    You are NOT allowed to use this code for commercial projects
+    without the permission of Peter Schauß / Unreal Software!
+
+    Please always link www.unrealsoftware.de in projects
+    which are using this code!
+
+    Please always add notes which say that you used the code of
+    Stranded II.
+
+    Thank you.
+
+Not covered
+-----------
+
+The game's data files (models, textures, sounds, maps, definitions) are not
+part of this repository and are not licensed by it. They remain the property
+of their author.
+
+Third-party software used by this project (Three.js, SvelteKit, Tailwind CSS
+and others listed in package.json) is licensed under its own terms. Parts of
+the runtime re-implement algorithms from Blitz3D by Blitz Research
+(https://github.com/blitz-research/blitz3d); see that project for its licence.
