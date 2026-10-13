@@ -30,11 +30,20 @@ pnpm pack-assets            # writes game-data.tar.gz and prints its SHA-256
 
 Then use one of:
 
-- **Download on first start (recommended).** Put `game-data.tar.gz` somewhere
-  the server can fetch it over HTTP(S) and set `GAME_DATA_URL`. On start, if
-  the volume has no `manifest.json`, the container downloads and unpacks it.
-  Because the volume persists, this happens once, not on every deploy.
-- **Copy by hand.** Unpack the archive into the volume's directory on the host.
+- **Copy over SSH (how the current deployment was filled).** Unpack the
+  archive into the application's named volume on the Docker host:
+
+  ```sh
+  scp game-data.tar.gz user@host:/tmp/stranded2-game-data.tar.gz
+  ssh user@host 'docker run --rm -v stranded2-game-data:/data     -v /tmp/stranded2-game-data.tar.gz:/in.tar.gz:ro alpine     sh -c "find /data -mindepth 1 -delete; tar -xzf /in.tar.gz -C /data && chmod -R a+rX /data"     && rm /tmp/stranded2-game-data.tar.gz'
+  ```
+
+  nginx reads the files per request, so no restart is needed.
+- **Download on first start.** Put `game-data.tar.gz` somewhere the server
+  can fetch it over HTTP(S) and set `GAME_DATA_URL`. On start, if the volume
+  has no `manifest.json`, the container downloads and unpacks it.
+
+The volume persists across deploys, so either way this is done once.
 
 | Variable | Meaning |
 | --- | --- |
@@ -52,16 +61,17 @@ site private.
 
 ## Dokploy application settings
 
-Create an **Application** with:
+The current deployment is the application **Stranded II Web** at
+<https://stranded2.biap.cc>. Its settings:
 
 | Setting | Value |
 | --- | --- |
 | Source | GitHub, repository `billpeet/stranded2-web`, branch `dokploy` |
 | Build type | Dockerfile, path `./Dockerfile`, context `.` |
 | Auto deploy | On (deploys on every push to `dokploy`) |
-| Domain | Your host name, container port `80`, HTTPS on |
-| Volume mount | A named volume mounted at `/data/game` |
-| Environment | `GAME_DATA_URL` (and optionally `GAME_DATA_SHA256`) |
+| Domain | `stranded2.biap.cc`, container port `80`, HTTPS (Let's Encrypt) |
+| Volume mount | Named volume `stranded2-game-data` mounted at `/data/game` |
+| Environment | None needed when the volume is filled by hand; otherwise `GAME_DATA_URL` |
 
 HTTPS is required, not optional: browsers only allow mouse capture (pointer
 lock) on secure pages.
